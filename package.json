@@ -1,0 +1,36 @@
+{
+  "name": "multiplex-rpc-streams",
+  "version": "1.0.0",
+  "description": "RPC with streams using multiplex",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape tests.js"
+  },
+  "author": {
+    "name": "Tim Hudson",
+    "email": "tim.hudson15@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "multiplex": "^4.0.1",
+    "peek-stream": "^1.1.1",
+    "safe-json-parse": "^2.0.0"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.4.7",
+    "tape": "^3.0.3"
+  },
+  "keywords": [
+    "rpc",
+    "multiplex",
+    "streams"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timhudson/multiplex-rpc-streams.git"
+  },
+  "bugs": {
+    "url": "https://github.com/timhudson/multiplex-rpc-streams/issues"
+  },
+  "homepage": "https://github.com/timhudson/multiplex-rpc-streams"
+}
