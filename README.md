@@ -36,7 +36,7 @@ client.range(10, 20)
 
 ## Usage
 
-## rpc(methods={})
+### rpc(methods={})
 
 Each method can accept any number of expected arguments understanding that the last argument with always be a stream to respond to. This is a normal node stream that can written or pipe to.
 
@@ -49,7 +49,7 @@ var server = rpc({
 })
 ```
 
-## rpc.client(methodNames=[])
+### rpc.client(methodNames=[])
 
 Provide an array of method names which will then be exposed as methods on the returned `client`.
 
@@ -64,6 +64,14 @@ You can also provide the method names as individual `String` arguments
 
 ``` js
 var client = rpc.client('range', 'uppercase')
+```
+
+### Connecting the streams
+
+The return value of `rpc()` and `rcp.client()` are both duplex streams and you will need to pipe them together to make the magic happen. See [substack/stream-handbook#duplex](https://github.com/substack/stream-handbook#duplex) and [this rant](https://github.com/dominictarr/rpc-stream#rant) by dominictarr for further information.
+
+``` js
+client.pipe(server).pipe(client)
 ```
 
 ## License
