@@ -56,7 +56,7 @@ Provide an array of method names which will then be exposed as methods on the re
 ``` js
 var client = rpc.client(['fetchActivity'])
 
-client.fetchActivity(Date.now() - 600000, Date.now())
+client.fetchActivity('2014-11-07', '2014-12-07')
   .pipe(process.stdout)
 ```
 
