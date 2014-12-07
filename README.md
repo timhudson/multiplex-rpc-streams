@@ -38,7 +38,7 @@ client.range(10, 20)
 
 ### rpc(methods={})
 
-Each method can accept any number of expected arguments understanding that the last argument with always be a stream to respond to. This is a normal node stream that can written or pipe to.
+Each method can accept any number of expected arguments understanding that the last argument will always be a stream to respond to. This is a normal node stream that can be written or piped to.
 
 ``` js
 var server = rpc({
@@ -51,7 +51,7 @@ var server = rpc({
 
 ### rpc.client(methodNames=[])
 
-Provide an array of method names which will then be exposed as methods on the returned `client`.
+Provide an array of method names which will be exposed as methods on the returned `client`.
 
 ``` js
 var client = rpc.client(['fetchActivity'])
