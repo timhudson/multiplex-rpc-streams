@@ -34,3 +34,27 @@ test('multiplex-rpc', function(t) {
       t.equal(data.toString(), 'CRACK! ZLOPP! URKK! BIFF! CLANK-EST!')
     }))
 })
+
+test('listen/connect', function(t) {
+  t.plan(1)
+
+  var server = rpc({
+    yell: function(str, stream) {
+      stream.write(str.toUpperCase())
+      stream.end()
+    }
+  })
+
+  var client = rpc.client('yell')
+
+  server.listen(3000)
+  client.connect(3000, function() {
+    client.yell('crash!')
+      .on('data', function(data) {
+        t.equal(data.toString(), 'CRASH!')
+
+        server.close()
+        client.destroy()
+      })
+  })
+})

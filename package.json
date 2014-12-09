@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "listen-connect": "^1.1.1",
     "multiplex": "^4.0.1",
     "peek-stream": "^1.1.1",
     "safe-json-parse": "^2.0.0"

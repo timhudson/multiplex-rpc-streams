@@ -1,6 +1,7 @@
 var multiplex = require('multiplex')
 var peek = require('peek-stream')
 var safeParse = require('safe-json-parse/tuple')
+var listenConnect = require('listen-connect')
 
 module.exports = Server
 module.exports.client = Client
@@ -23,6 +24,8 @@ function Server(methods) {
 
     stream.pipe(peekStream)
   })
+
+  mul.listen = listenConnect.createListen(mul)
 
   return mul
 }
@@ -50,6 +53,8 @@ function Client(methods) {
       return stream
     }
   })
+
+  mul.connect = listenConnect.createConnect(mul)
 
   return mul
 }
