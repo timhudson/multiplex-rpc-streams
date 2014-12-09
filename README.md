@@ -68,10 +68,29 @@ var client = rpc.client('range', 'uppercase')
 
 ### Connecting the streams
 
-The return value of `rpc()` and `rcp.client()` are both duplex streams and you will need to pipe them together to make the magic happen. See [substack/stream-handbook#duplex](https://github.com/substack/stream-handbook#duplex) and [this rant](https://github.com/dominictarr/rpc-stream#rant) by dominictarr for further information.
+The return value of `rpc()` and `rcp.client()` are both duplex streams which can be piped together to make the magic happen. See [substack/stream-handbook#duplex](https://github.com/substack/stream-handbook#duplex) and [this rant](https://github.com/dominictarr/rpc-stream#rant) by dominictarr for further information.
 
 ``` js
 client.pipe(server).pipe(client)
+```
+
+To expose these streams over the network you can use the `listen` and `connect` methods. Both accept port/host/path/callback arguments. See [parse-connection-args](https://www.npmjs.org/package/parse-connection-args) for documentation.
+
+``` js
+var server = rpc({
+  whisper: function(str, stream) {
+    stream.write(str.toLowerCase())
+    stream.end()
+  }
+})
+
+server.listen(4000)
+
+var client = rpc.client('whisper')
+
+client.connect(4000, function() {
+  console.log('RPC client is now connected to port 4000')
+})
 ```
 
 ## License
