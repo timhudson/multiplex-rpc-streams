@@ -25,7 +25,18 @@ function Server(methods) {
     stream.pipe(peekStream)
   })
 
-  mul.listen = listenConnect.createListen(mul)
+  mul.close = function() {
+    if (!mul.server) return mul.emit('error', new Error('No running server to close. Try running server.listen first.'))
+    mul.server.close.apply(mul.server, arguments)
+  }
+
+  mul.listen = function() {
+    var listen = listenConnect.createListen(function() {
+      return Server(methods)
+    })
+
+    mul.server = listen.apply(null, arguments)
+  }
 
   return mul
 }
@@ -41,9 +52,13 @@ function Client(methods) {
 
   var mul = multiplex()
 
+  mul.on('close', function() {
+    if (mul.client) mul.client.destroy()
+  })
+
   methods.forEach(function(method) {
     mul[method] = function() {
-      var stream = mul.createStream()
+      var stream = (mul.client || mul).createStream()
       var args = Array.prototype.slice.call(arguments, 0)
 
       stream.write(JSON.stringify({
@@ -54,7 +69,10 @@ function Client(methods) {
     }
   })
 
-  mul.connect = listenConnect.createConnect(mul)
+  mul.connect = listenConnect.createConnect(function() {
+    mul.client = Client(methods)
+    return mul.client
+  })
 
   return mul
 }

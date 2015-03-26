@@ -12,10 +12,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "listen-connect": "^1.1.1",
+    "listen-connect": "^3.0.0",
     "multiplex": "^4.0.1",
     "peek-stream": "^1.1.1",
-    "safe-json-parse": "^2.0.0"
+    "safe-json-parse": "^4.0.0"
   },
   "devDependencies": {
     "concat-stream": "^1.4.7",
